@@ -102,6 +102,22 @@ unsigned long long int const Km40 = bitsetKm40.to_ullong() ;
 std::bitset<64> const bitsetKm50("0001100000011000000110000001100000000000000000000000000000000000") ;
 unsigned long long int const Km50 = bitsetKm50.to_ullong() ;
 
+std::bitset<64> const bitsetKLm50("1100001100000000000000000000000000000000000000000000000010000001") ;
+unsigned long long int const KLm50 = bitsetKLm50.to_ullong() ;
+
+std::bitset<64> const bitsetKLm30("0011110011000011100000011000000110000001100000011100001101111110") ;
+unsigned long long int const KLm30 = bitsetKLm30.to_ullong() ;
+
+std::bitset<64> const bitsetKLm10("0000000000100100010000100100001001000010010000100000000000000000") ;
+unsigned long long int const KLm10 = bitsetKLm10.to_ullong() ;
+
+std::bitset<64> const bitsetKL30("0000000000000000001111000010010000100100001111000000000000000000") ;
+unsigned long long int const KL30 = bitsetKL30.to_ullong() ;
+
+std::bitset<64> const bitsetKL40("0000000000000000000000000001100000011000000000000000000000000000") ;
+unsigned long long int const KL40 = bitsetKL40.to_ullong() ;
+
+
 std::bitset<64> const bitsetR10("0000000001111110000000000000000000000000000000000000000000000000") ;
 unsigned long long int const R10 = bitsetR10.to_ullong() ;
 
@@ -145,6 +161,13 @@ unsigned long long int const km20 (139092515880960) ;
 unsigned long long int const km30 (440259412353) ;
 unsigned long long int const km40 (104797202022) ;
 unsigned long long int const km50 (404232216) ;
+
+unsigned long long int const klm50(9295429630892703939) ; 
+unsigned long long int const klm30(9134286862461027132) ; 
+unsigned long long int const klm10(72852346905600) ; 
+unsigned long long int const kl30(66125924401152) ; 
+unsigned long long int const kl40(103481868288) ; 
+
 
 unsigned long long int const r10 = 32256 ;
 unsigned long long int const r5 = 1729382256910303488 ;
@@ -232,7 +255,10 @@ int PieceSquareTables(unsigned long long int r,unsigned long long int n,unsigned
         unsigned long long int R,unsigned long long int N,unsigned long long int B,
         unsigned long long int Q,unsigned long long int K,unsigned long long int P);
 
-
+int PieceSquareTables2(unsigned long long int r,unsigned long long int n,unsigned long long int b,
+        unsigned long long int q,unsigned long long int k,unsigned long long int p,
+        unsigned long long int R,unsigned long long int N,unsigned long long int B,
+        unsigned long long int Q,unsigned long long int K,unsigned long long int P);
 
 
 extern int const LateThreshold ;
@@ -254,6 +280,22 @@ int EvalFunction(unsigned long long int r,unsigned long long int n,unsigned long
     return eval ;
 }
 
+int EvalFunction2(unsigned long long int r,unsigned long long int n,unsigned long long int b,
+        unsigned long long int q,unsigned long long int k,unsigned long long int p,
+        unsigned long long int R,unsigned long long int N,unsigned long long int B,
+        unsigned long long int Q,unsigned long long int K,unsigned long long int P, int moveNb)
+{
+    int eval(0);
+
+    eval += EvalPieces(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+    eval += PieceSquareTables2(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+    // if ( moveNb <= LateThreshold ){
+    //     eval += PieceSquareTables(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+    // }
+    return eval ;
+}
+
+
 int EvalPieces(unsigned long long int r,unsigned long long int n,unsigned long long int b,
         unsigned long long int q,unsigned long long int k,unsigned long long int p,
         unsigned long long int R,unsigned long long int N,unsigned long long int B,
@@ -271,30 +313,31 @@ int EvalPieces(unsigned long long int r,unsigned long long int n,unsigned long l
     return sum ;
 }
 
-// int EvalEndgame1(unsigned long long int r,unsigned long long int n,unsigned long long int b,
-//         unsigned long long int q,unsigned long long int k,unsigned long long int p,
-//         unsigned long long int R,unsigned long long int N,unsigned long long int B,
-//         unsigned long long int Q,unsigned long long int K,unsigned long long int P)
-// {
-//     int sum1 (0) ;
-//     int sum2 (0) ;
+int EvalMajorPieces(unsigned long long int r,unsigned long long int n,unsigned long long int b,
+        unsigned long long int q,
+        unsigned long long int R,unsigned long long int N,unsigned long long int B,
+        unsigned long long int Q)
+{
+    int sum1 (0) ;
+    int sum2 (0) ;
+
+    sum1 += countSetBits2(r)*5 ;
+    sum1 += countSetBits2(n)*3 ;
+    sum1 += countSetBits2(b)*3 ;
+    sum1 += countSetBits2(q)*9 ;
+
+    sum2 += countSetBits2(R)*5 ;
+    sum2 += countSetBits2(N)*3 ;
+    sum2 += countSetBits2(B)*3 ;
+    sum2 += countSetBits2(Q)*9 ;
+
+    return std::min(sum1,sum2) ;
+    // sum += (countSetBits2(K) - countSetBits2(k)) * 10000 ;
+    // sum += (countSetBits2(P) - countSetBits2(p)) * 100 ;x    
+}
 
 
-//     sum1 += countSetBits2(R) * 5 ;
-//     sum1 += countSetBits2(N) * 3 ;
-//     sum1 += countSetBits2(B) * 3 ;
-//     sum1 += countSetBits2(Q) * 9 ;
-//     sum1 += countSetBits2(P) ;
-
-//     sum2 += countSetBits2(r) * 5 ;
-//     sum2 += countSetBits2(n) * 3 ;
-//     sum2 += countSetBits2(b) * 3 ;
-//     sum2 += countSetBits2(q) * 9 ;
-//     sum2 += countSetBits2(p) ;
-
-
-//     return sum1 - sum2 ;
-// }
+// int 
 
 int PieceSquareTables(unsigned long long int r,unsigned long long int n,unsigned long long int b,
         unsigned long long int q,unsigned long long int k,unsigned long long int p,
@@ -358,4 +401,62 @@ int PieceSquareTables(unsigned long long int r,unsigned long long int n,unsigned
     return sum ;
 }
 
+int PieceSquareTables2(unsigned long long int r,unsigned long long int n,unsigned long long int b,
+        unsigned long long int q,unsigned long long int k,unsigned long long int p,
+        unsigned long long int R,unsigned long long int N,unsigned long long int B,
+        unsigned long long int Q,unsigned long long int K,unsigned long long int P)
+{
+    int sum (0) ;
+
+    sum += ( countSetBits2(P&PawnSqTbW50) - countSetBits2(p&p50) ) * 50 ;
+    sum += ( countSetBits2(P&PawnSqTbW30) - countSetBits2(p&p30) ) * 30 ;
+    sum += ( countSetBits2(P&PawnSqTbW27) - countSetBits2(p&p27) ) * 27 ;
+    sum += ( countSetBits2(P&PawnSqTbW25) - countSetBits2(p&p25) ) * 25 ;
+    sum += ( countSetBits2(P&PawnSqTbW20) - countSetBits2(p&p20) ) * 20 ;
+    // sum += ( countSetBits2(P&PawnSqTbW10) - countSetBits2(p&p10) ) * 10 ;
+    // sum += ( countSetBits2(P&PawnSqTbW5) - countSetBits2(p&p5) ) * 5 ;
+    // sum += ( countSetBits2(P&PawnSqTbWm5) - countSetBits2(p&pm5) ) * -5 ;
+    // sum += ( countSetBits2(P&PawnSqTbWm10) - countSetBits2(p&pm10) ) * -10 ;
+    // sum += ( countSetBits2(P&PawnSqTbWm25) - countSetBits2(p&pm25) ) * -25 ;
+
+    if (N || n){
+    sum += ( countSetBits2(N&N20) - countSetBits2(n&n20) ) * 20 ;
+    sum += ( countSetBits2(N&N15) - countSetBits2(n&n15) ) * 15 ;
+    sum += ( countSetBits2(N&N10) - countSetBits2(n&n10) ) * 10 ;
+    sum += ( countSetBits2(N&N5) - countSetBits2(n&n5) ) * 5 ;
+    sum += ( countSetBits2(N&Nm20) - countSetBits2(n&nm20) ) * -20 ;
+    sum += ( countSetBits2(N&Nm30) - countSetBits2(n&nm30) ) * -30 ;
+    sum += ( countSetBits2(N&Nm40) - countSetBits2(n&nm40) ) * -40 ;
+    sum += ( countSetBits2(N&Nm50) - countSetBits2(n&nm50) ) * -50 ;
+    }
+
+    if(B || b){
+        sum += ( countSetBits2(B&B10) - countSetBits2(b&b10) ) * 10 ;
+        sum += ( countSetBits2(B&B5) - countSetBits2(b&b5) ) * 5 ;
+        sum += ( countSetBits2(B&Bm10) - countSetBits2(b&bm10) ) * -10 ;
+        sum += ( countSetBits2(B&Bm20) - countSetBits2(b&bm20) ) * -20 ;
+        sum += ( countSetBits2(B&Bm40) - countSetBits2(b&bm40) ) * -40 ;
+    }
+
+    sum += ( countSetBits2(K&KL40) - countSetBits2(k&kl40) ) * 40 ;
+    sum += ( countSetBits2(K&KL30) - countSetBits2(k&kl30) ) * 30 ;
+    sum += ( countSetBits2(K&KLm10) - countSetBits2(k&klm10) ) * -10 ;
+    sum += ( countSetBits2(K&KLm30) - countSetBits2(k&klm30) ) * -30 ;
+    sum += ( countSetBits2(K&KLm50) - countSetBits2(k&klm50) ) * -50 ;
+
+    // if(R || r )
+    // {
+    //     sum += ( countSetBits2(R&R10) - countSetBits2(r&r10) ) * 10 ;
+    //     sum += ( countSetBits2(R&R5) - countSetBits2(r&r5) ) * 5 ;
+    //     sum += ( countSetBits2(R&Rm5) - countSetBits2(r&rm5) ) * -5 ;
+    // }
+    // if(Q || q )
+    // {
+    //     sum += ( countSetBits2(R&R10) - countSetBits2(r&r10) ) * 10 ;
+    //     sum += ( countSetBits2(R&R5) - countSetBits2(r&r5) ) * 5 ;
+    //     sum += ( countSetBits2(R&Rm5) - countSetBits2(r&rm5) ) * -5 ;
+    // }
+
+    return sum ;
+}
 
