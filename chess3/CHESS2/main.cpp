@@ -56,7 +56,7 @@ int main()
         }
     }
 
-    Game(3,5,4,6,whiteHuman) ;
+    Game(3,5,4,5,whiteHuman) ;
 
     
     // unsigned long long int p27 = reverseULL(PawnSqTbW10) ; 
