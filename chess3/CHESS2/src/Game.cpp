@@ -112,7 +112,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
     //extern std::unordered_map<unsigned long long int, int> ump ;
     //extern std::unordered_map<unsigned long long int, int>::iterator it ;
 
-    // int rng ;
+    int rng ;
 
     // auto start = std::chrono::steady_clock::now();    
     // auto end = std::chrono::steady_clock::now();
@@ -925,16 +925,16 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
                     }
-                    // if (thisEval == bestEval){
-                    //     rng = rand() % 100;
-                    //     if (rng < 10){
-                    //         variante = {position, destination} ;
-                    //         variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
+                    if (thisEval == bestEval){
+                        rng = rand() % 100;
+                        if (rng < 10){
+                            variante = {position, destination} ;
+                            variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
 
-                    //         bestInd = 2*semIdx ;
-                    //         bestEval = thisEval ;
-                    //     }
-                    // }
+                            bestInd = 2*semIdx ;
+                            bestEval = thisEval ;
+                        }
+                    }
 
                     enPassant = tempassant ;
                     forbCstlS = tempForbCstlS ;
@@ -1178,16 +1178,16 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
                     }
-                    // if (thisEval == bestEval){
-                    //     rng = rand() % 100;
-                    //     if (rng < 10){
-                    //         variante = {position, destination} ;
-                    //         variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
+                    if (thisEval == bestEval){
+                        rng = rand() % 100;
+                        if (rng < 10){
+                            variante = {position, destination} ;
+                            variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
 
-                    //         bestInd = 2*semIdx ;
-                    //         bestEval = thisEval ;
-                    //     }
-                    // }
+                            bestInd = 2*semIdx ;
+                            bestEval = thisEval ;
+                        }
+                    }
 
 
                     enPassant = tempassant ;
