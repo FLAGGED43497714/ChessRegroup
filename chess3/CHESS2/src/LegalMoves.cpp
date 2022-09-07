@@ -656,6 +656,8 @@ void KingMoves(std::vector<int>& moves, unsigned long long int piece,unsigned lo
     }
 }
 
+// 2 : Captures only
+
 void legPaW2 (std::vector<int>& moves, unsigned long long int P,
              unsigned long long int whitePieces, unsigned long long int blackPieces,
              unsigned long long int occupied, unsigned long long int enPassant){
@@ -732,9 +734,9 @@ void legPaB2 (std::vector<int>& moves, unsigned long long int p,
 
 
 void sliderHV2(std::vector<int>& moves, unsigned long long int piece,
-            unsigned long long int allyPieces,
-             unsigned long long int occupied){
-
+        unsigned long long int allyPieces,
+        unsigned long long int occupied){
+            
     unsigned long long int slider ;
     unsigned long long int sliderReverse ;
     unsigned long long int lineAttack ;

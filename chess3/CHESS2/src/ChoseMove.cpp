@@ -67,21 +67,21 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
         }
 
         if (k == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return 10000 + veryMaxDepth ;
         }
         if (K == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return -10000 - veryMaxDepth ;
         }
 
-        // std::string nothing ;
+        std::string nothing ;
 
         std::vector<int> moves ;
 
 
-        // std::vector<int> tempSuffix ;
-        // std::vector<int> tempVariante ;
+        std::vector<int> tempSuffix ;
+        std::vector<int> tempVariante ;
 
         unsigned long long int tempEnPassant;
         // unsigned long long int tempForbCstlS;
@@ -95,11 +95,11 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
         }
 
         if (k == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return 10000 + veryMaxDepth ;
         }
         if (K == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return -10000 - veryMaxDepth ;
         }
 
@@ -107,8 +107,8 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
 
         // std::vector<int> moves ;
 
-
-        std::vector<int> tempSuffix ;
+        //redef
+        // std::vector<int> tempSuffix ;
         // std::vector<int> tempVariante ;
 
         // unsigned long long int tempEnPassant;
@@ -159,6 +159,21 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
 
         if (maximizingPlayer){
 
+            if (depthInit <= 0){
+                legPaW2(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
+                KnightMoves2(moves, N, occupied, whitePieces) ;
+                sliderD2(moves, B, whitePieces, occupied) ;
+                sliderCD2(moves, B, whitePieces, occupied) ;
+                sliderHV2(moves, Q, whitePieces, occupied) ;
+                sliderD2(moves, Q, whitePieces, occupied) ;
+                sliderCD2(moves, Q, whitePieces, occupied) ;
+                sliderHV2(moves, R, whitePieces, occupied) ;
+                KingMoves2(moves, K, whitePieces, occupied) ;
+                
+                maxEval = EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P,moveNb) ;
+                
+
+            } else {
                 legPaW(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, N, whitePieces) ;
                 sliderD(moves, B, whitePieces, occupied) ;
@@ -167,7 +182,9 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 sliderD(moves, Q, whitePieces, occupied) ;
                 sliderCD(moves, Q, whitePieces, occupied) ;
                 sliderHV(moves, R, whitePieces, occupied) ;
-                KingMoves(moves, K, R, whitePieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
+                KingMoves(moves, K, R,  whitePieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
+                maxEval = - intINFINITY ;
+            }
 
 
             captInd = 0 ;
@@ -254,7 +271,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
 
 
 
-            maxEval = - intINFINITY ;
+            // maxEval = - intINFINITY ;
             tempEnPassant = enPassant ;
             tempForbCstlS = forbCstlS ;
             tempForbCstlL = forbCstlL ;
@@ -278,23 +295,24 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 position = moves[2*semIdx] ;
                 destination = moves[2*semIdx+1] ;
                 Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P, enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle, wasPromote, pieceCaptured) ;
-
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 if (/*((depth == 2)||*/(depth == 1) && (pieceCaptured != 0)){
                     depth += 1 ;
                     depthIncreased = true ;
                 }
 
-                eval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1, veryMaxDepth-1, alpha,beta,false, moveNb) ;
+                eval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1, veryMaxDepth-1, alpha,beta,false, moveNb+1) ;
                 tempForbCstlL = tempForbCstlL2 ;
                 tempForbcstlL = tempForbcstlL2 ;
                 tempForbCstlS = tempForbCstlS2 ;
                 tempForbcstlS = tempForbcstlS2 ;
 
-                // if (eval > maxEval){
-                    // tempVariante = {position, destination} ;
-                    // tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end() );
-                    // tempSuffix.clear() ;
-                // }
+                if (eval > maxEval){
+                    tempVariante = {position, destination} ;
+                    tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end() );
+                    tempSuffix.clear() ;
+                }
 
 
                 if (depthIncreased){
@@ -308,6 +326,8 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 forbcstlL = tempForbcstlL ;
 
                 Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle, wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
                     std::cout << "undone move in minimax" << std::endl ;
@@ -319,7 +339,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                     break ;
                 }
             }
-            // rootVariant = tempVariante ;
+            rootVariant = tempVariante ;
             return maxEval ;
         }
 
@@ -328,7 +348,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
         else { // not maximizing player
 
             /* compute legal moves */
-            /*if (depthInit < 0){
+            if (depthInit <= 0){
                 legPaB2(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves2(moves, n, occupied, blackPieces) ;
                 sliderD2(moves, b, blackPieces, occupied) ;
@@ -337,12 +357,12 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 sliderD2(moves, q, blackPieces, occupied) ;
                 sliderCD2(moves, q, blackPieces, occupied) ;
                 sliderHV2(moves, r, blackPieces, occupied) ;
-                KingMoves2(moves, k, r,  blackPieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
-                if (moves.size() == 0){
-                    return EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P) ;
-                }
+                KingMoves2(moves, k, blackPieces, occupied) ;
+                
+                minEval = EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P,moveNb) ;
+                
 
-            } else {*/
+            } else {
                 legPaB(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, n, blackPieces) ;
                 sliderD(moves, b, blackPieces, occupied) ;
@@ -352,7 +372,8 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 sliderCD(moves, q, blackPieces, occupied) ;
                 sliderHV(moves, r, blackPieces, occupied) ;
                 KingMoves(moves, k, r,  blackPieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
-            //}
+                minEval = intINFINITY ;
+            }
 
 
 
@@ -447,7 +468,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
             // }
 
 
-            minEval = intINFINITY ;
+            // minEval = intINFINITY ;
             tempEnPassant = enPassant ;
             tempForbcstlS = forbcstlS ;
             tempForbcstlL = forbcstlL ;
@@ -471,6 +492,8 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 position = moves[2*semIdx] ;
                 destination = moves[2*semIdx+1] ;
                 Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle, wasPromote,pieceCaptured) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     std::cout << "done move" << std::endl ;
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
@@ -482,7 +505,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
 
 
 
-                eval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1,veryMaxDepth-1,alpha,beta,true, moveNb) ;
+                eval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1,veryMaxDepth-1,alpha,beta,true, moveNb+1) ;
                 //ump.insert(std::pair<unsigned long long int, int>(zobKey, eval));
 
                 tempForbCstlL = tempForbCstlL2 ;
@@ -490,13 +513,13 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 tempForbCstlS = tempForbCstlS2 ;
                 tempForbcstlS = tempForbcstlS2 ;
 
-                // if (eval < minEval){
+                if (eval < minEval){
 
-                    // tempVariante = {position, destination} ;
-                    // tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end());
-                    // tempSuffix.clear() ;
+                    tempVariante = {position, destination} ;
+                    tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end());
+                    tempSuffix.clear() ;
 
-                // }
+                }
 
                 if (depthIncreased){
                     depth -= 1 ;
@@ -508,6 +531,8 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                 forbCstlS = tempForbCstlS ;
                 forbCstlL = tempForbCstlL ;
                 Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle, wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
                     std::cout << "undone move in minimax" << std::endl ;
@@ -523,7 +548,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
                     break ;
                 }
             }
-            // rootVariant = tempVariante ;
+            rootVariant = tempVariante ;
             return minEval ;
     }
 }
@@ -585,13 +610,13 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
             return -10000 - veryMaxDepth ;
         }
 
-        // std::string nothing ;
+        std::string nothing ;
 
         std::vector<int> moves ;
 
 
-        // std::vector<int> tempSuffix ;
-        // std::vector<int> tempVariante ;
+        std::vector<int> tempSuffix ;
+        std::vector<int> tempVariante ;
 
         unsigned long long int tempEnPassant;
         // unsigned long long int tempForbCstlS;
@@ -605,11 +630,11 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
         }
 
         if (k == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return 10000 + veryMaxDepth ;
         }
         if (K == 0){
-            // rootVariant.clear() ;
+            rootVariant.clear() ;
             return -10000 - veryMaxDepth ;
         }
 
@@ -618,7 +643,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
         // std::vector<int> moves ;
 
 
-        std::vector<int> tempSuffix ;
+        // std::vector<int> tempSuffix ;
         // std::vector<int> tempVariante ;
 
         // unsigned long long int tempEnPassant;
@@ -669,6 +694,21 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
 
         if (maximizingPlayer){
 
+            if (depthInit <= 0){
+                
+                legPaW2(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
+                KnightMoves2(moves, N,occupied,whitePieces) ;
+                sliderD2(moves, B, whitePieces, occupied) ;
+                sliderCD2(moves, B, whitePieces, occupied) ;
+                sliderHV2(moves, Q, whitePieces, occupied) ;
+                sliderD2(moves, Q, whitePieces, occupied) ;
+                sliderCD2(moves, Q, whitePieces, occupied) ;
+                sliderHV2(moves, R, whitePieces, occupied) ;
+                KingMoves2(moves, K, whitePieces, occupied) ;
+                maxEval = EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P,moveNb) ;
+                
+
+            } else {
                 legPaW(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, N, whitePieces) ;
                 sliderD(moves, B, whitePieces, occupied) ;
@@ -677,7 +717,9 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 sliderD(moves, Q, whitePieces, occupied) ;
                 sliderCD(moves, Q, whitePieces, occupied) ;
                 sliderHV(moves, R, whitePieces, occupied) ;
-                KingMoves(moves, K, R, whitePieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
+                KingMoves(moves, K, R,  whitePieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
+                maxEval = - intINFINITY ;
+            }
 
 
             captInd = 0 ;
@@ -764,7 +806,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
 
 
 
-            maxEval = - intINFINITY ;
+            //maxEval = - intINFINITY ;
             tempEnPassant = enPassant ;
             tempForbCstlS = forbCstlS ;
             tempForbCstlL = forbCstlL ;
@@ -788,23 +830,24 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 position = moves[2*semIdx] ;
                 destination = moves[2*semIdx+1] ;
                 Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P, enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle, wasPromote, pieceCaptured) ;
-
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 if (/*((depth == 2)||*/(depth == 1) && (pieceCaptured != 0)){
                     depth += 1 ;
                     depthIncreased = true ;
                 }
 
-                eval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1, veryMaxDepth-1, alpha,beta,false, moveNb) ;
+                eval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1, veryMaxDepth-1, alpha,beta,false, moveNb+1) ;
                 tempForbCstlL = tempForbCstlL2 ;
                 tempForbcstlL = tempForbcstlL2 ;
                 tempForbCstlS = tempForbCstlS2 ;
                 tempForbcstlS = tempForbcstlS2 ;
 
-                // if (eval > maxEval){
-                    // tempVariante = {position, destination} ;
-                    // tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end() );
-                    // tempSuffix.clear() ;
-                // }
+                if (eval > maxEval){
+                    tempVariante = {position, destination} ;
+                    tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end() );
+                    tempSuffix.clear() ;
+                }
 
 
                 if (depthIncreased){
@@ -818,6 +861,8 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 forbcstlL = tempForbcstlL ;
 
                 Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle, wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
                     std::cout << "undone move in minimax" << std::endl ;
@@ -829,7 +874,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                     break ;
                 }
             }
-            // rootVariant = tempVariante ;
+            rootVariant = tempVariante ;
             return maxEval ;
         }
 
@@ -838,7 +883,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
         else { // not maximizing player
 
             /* compute legal moves */
-            /*if (depthInit < 0){
+            if (depthInit <= 0){
                 legPaB2(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves2(moves, n, occupied, blackPieces) ;
                 sliderD2(moves, b, blackPieces, occupied) ;
@@ -847,12 +892,12 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 sliderD2(moves, q, blackPieces, occupied) ;
                 sliderCD2(moves, q, blackPieces, occupied) ;
                 sliderHV2(moves, r, blackPieces, occupied) ;
-                KingMoves2(moves, k, r,  blackPieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
-                if (moves.size() == 0){
-                    return EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P) ;
-                }
+                KingMoves2(moves, k, blackPieces, occupied) ;
+                
+                minEval = EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P,moveNb) ;
+                
 
-            } else {*/
+            } else {
                 legPaB(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, n, blackPieces) ;
                 sliderD(moves, b, blackPieces, occupied) ;
@@ -862,7 +907,8 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 sliderCD(moves, q, blackPieces, occupied) ;
                 sliderHV(moves, r, blackPieces, occupied) ;
                 KingMoves(moves, k, r,  blackPieces, occupied, CstlL, CstlS, cstlL, cstlS) ;
-            //}
+                minEval = intINFINITY ;
+            }
 
 
 
@@ -957,7 +1003,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
             // }
 
 
-            minEval = intINFINITY ;
+            // minEval = intINFINITY ;
             tempEnPassant = enPassant ;
             tempForbcstlS = forbcstlS ;
             tempForbcstlL = forbcstlL ;
@@ -981,6 +1027,8 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 position = moves[2*semIdx] ;
                 destination = moves[2*semIdx+1] ;
                 Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle, wasPromote,pieceCaptured) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     std::cout << "done move" << std::endl ;
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
@@ -992,7 +1040,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
 
 
 
-                eval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1,veryMaxDepth-1,alpha,beta,true, moveNb) ;
+                eval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL, tempSuffix, depthInit-1,depth-1,veryMaxDepth-1,alpha,beta,true, moveNb+1) ;
                 //ump.insert(std::pair<unsigned long long int, int>(zobKey, eval));
 
                 tempForbCstlL = tempForbCstlL2 ;
@@ -1000,13 +1048,13 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 tempForbCstlS = tempForbCstlS2 ;
                 tempForbcstlS = tempForbcstlS2 ;
 
-                // if (eval < minEval){
+                if (eval < minEval){
 
-                    // tempVariante = {position, destination} ;
-                    // tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end());
-                    // tempSuffix.clear() ;
+                    tempVariante = {position, destination} ;
+                    tempVariante.insert(tempVariante.end(), tempSuffix.begin(), tempSuffix.end());
+                    tempSuffix.clear() ;
 
-                // }
+                }
 
                 if (depthIncreased){
                     depth -= 1 ;
@@ -1018,6 +1066,8 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                 forbCstlS = tempForbCstlS ;
                 forbCstlL = tempForbCstlL ;
                 Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle, wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                // std::cin >> nothing ;
                 /*if (verbose){
                     coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
                     std::cout << "undone move in minimax" << std::endl ;
@@ -1033,7 +1083,7 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
                     break ;
                 }
             }
-            // rootVariant = tempVariante ;
+            rootVariant = tempVariante ;
             return minEval ;
     }
 }

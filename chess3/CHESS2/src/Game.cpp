@@ -184,6 +184,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
 
                 while (!legal){
+
+                    //version keyboard
                     // std::cout << "position ?" << std::endl;
                     // std::cin >> strPosition ;
                     // std::cin.ignore() ;
@@ -198,6 +200,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     // //destination = SquareNameToNb(strDestination) ;
                     // destination = stoi(strDestination) ;
 
+
+                    //version clique 
                     int exitnb ;
                     exitnb = system("C:/Users/balth/anaconda3/python.exe C:\\Users\\balth\\C++\\ChesConsTest1\\chess3\\CHESS2\\findDiff.py");
 
@@ -225,8 +229,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
             } else { // white not human
                 
 
-                // variante.clear() ;
-                // tempVariante.clear() ;
+                variante.clear() ;
+                tempVariante.clear() ;
 
                 legPaW(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
                 sliderD(moves, B, whitePieces, occupied) ;
@@ -351,7 +355,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     brokecastleL = false ;
 
                     Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle,wasPromote,pieceCaptured);
-
+                    // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                    // std::cin >> nothing ;
 
 
 
@@ -359,8 +364,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     //std::cout << thisEval << std::endl ;
 
                     if (thisEval > bestEval){
-                        // variante = {position, destination} ;
-                        // variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
+                        variante = {position, destination} ;
+                        variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
 
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
@@ -383,7 +388,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     forbcstlL = tempForbcstlL ;
 
                     Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle,wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
-
+                    // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                    // std::cin >> nothing ;
 
                 }
                 //std::cin >> nothing ;
@@ -440,6 +446,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
             while (!legal){
 
+                //version keyboard 
                 // std::cout << "position ?" << std::endl;
                 // std::cin >> strPosition ;
                 // std::cin.ignore() ;
@@ -455,6 +462,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                 // //destination = SquareNameToNb(strDestination) ;
                 // destination = stoi(strDestination) ;
 
+
+                //version clique
                 int exitnb ;
                 exitnb = system("C:/Users/balth/anaconda3/python.exe C:\\Users\\balth\\C++\\ChesConsTest1\\chess3\\CHESS2\\findDiff.py");
 
@@ -482,8 +491,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                 
                 // start = std::chrono::steady_clock::now();    
 
-                // variante.clear();
-                // tempVariante.clear();
+                variante.clear();
+                tempVariante.clear();
 
                 legPaB(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, n, blackPieces) ;
@@ -604,16 +613,18 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     brokecastleL = false ;
 
                     Do_move(position,destination,CstlL,CstlS,cstlL,cstlS,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,r,n,b,q,k,p,R,N,B,Q,K,P,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,wasCastle,wasPromote,pieceCaptured);
+                    // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                    // std::cin >> nothing ;
 
-                    thisEval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL,tempVariante, depthInit,depth1,depth2,-GAMEintINFINITY,GAMEintINFINITY,true, moveNb) ;
+                    thisEval = minimax(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL,tempVariante, depthInit,depth1,depth2,-GAMEintINFINITY,GAMEintINFINITY,true, moveNb+1) ;
 
                     //show moves :
                     //std::cout << position << " > " << destination << " = " << thisEval << std::endl ;
 
 
                     if (thisEval < bestEval){
-                        // variante = {position, destination} ;
-                        // variante.insert(variante.end(), tempVariante.begin(), tempVariante.end() ) ;
+                        variante = {position, destination} ;
+                        variante.insert(variante.end(), tempVariante.begin(), tempVariante.end() ) ;
 
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
@@ -637,7 +648,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     forbcstlL = tempForbcstlL ;
 
                     Undo_move(position,destination,brokeCastleS,brokeCastleL,brokecastleS,brokecastleL,wasCastle,wasPromote,pieceCaptured,CstlL,CstlS,cstlL,cstlS,r,n,b,q,k,p,R,N,B,Q,K,P) ;
-
+                    // coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
+                    // std::cin >> nothing ;
                 }
 
                 //std::cin >> nothing ;
@@ -744,6 +756,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
 
                 while (!legal){
+                    //version clavier
                     // std::cout << "position ?" << std::endl;
                     // std::cin >> strPosition ;
                     // std::cin.ignore() ;
@@ -758,6 +771,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                     // //destination = SquareNameToNb(strDestination) ;
                     // destination = stoi(strDestination) ;
 
+                    // version clic
                     int exitnb ;
                     exitnb = system("C:/Users/balth/anaconda3/python.exe C:\\Users\\balth\\C++\\ChesConsTest1\\chess3\\CHESS2\\findDiff.py");
 
@@ -785,8 +799,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
             } else { // white not human
                 
 
-                // variante.clear() ;
-                // tempVariante.clear() ;
+                variante.clear() ;
+                tempVariante.clear() ;
 
                 legPaW(moves, P, whitePieces, blackPieces, occupied, enPassant) ;
                 sliderD(moves, B, whitePieces, occupied) ;
@@ -915,12 +929,12 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
 
 
-                    thisEval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL,tempVariante, depthInit,depth1,depth2,-GAMEintINFINITY,GAMEintINFINITY,false, moveNb) ;
+                    thisEval = minimax2(r,n,b,q,k,p,R,N,B,Q,K,P,CstlL,CstlS,cstlL,cstlS,enPassant,forbCstlS,forbCstlL,forbcstlS,forbcstlL,tempForbCstlS,tempForbCstlL,tempForbcstlS,tempForbcstlL,tempVariante, depthInit,depth1,depth2,-GAMEintINFINITY,GAMEintINFINITY,false, moveNb+1) ;
                     //std::cout << thisEval << std::endl ;
 
                     if (thisEval > bestEval){
-                        // variante = {position, destination} ;
-                        // variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
+                        variante = {position, destination} ;
+                        variante.insert(variante.end(), tempVariante.begin(), tempVariante.end()) ;
 
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
@@ -1000,6 +1014,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
             while (!legal){
 
+                //version clavier
                 // std::cout << "position ?" << std::endl;
                 // std::cin >> strPosition ;
                 // std::cin.ignore() ;
@@ -1015,6 +1030,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                 // //destination = SquareNameToNb(strDestination) ;
                 // destination = stoi(strDestination) ;
 
+                //version clique
                 int exitnb ;
                 exitnb = system("C:/Users/balth/anaconda3/python.exe C:\\Users\\balth\\C++\\ChesConsTest1\\chess3\\CHESS2\\findDiff.py");
 
@@ -1042,8 +1058,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
                 
                 // start = std::chrono::steady_clock::now();    
 
-                // variante.clear();
-                // tempVariante.clear();
+                variante.clear();
+                tempVariante.clear();
 
                 legPaB(moves, p, whitePieces, blackPieces, occupied, enPassant) ;
                 KnightMoves(moves, n, blackPieces) ;
@@ -1172,8 +1188,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
 
                     if (thisEval < bestEval){
-                        // variante = {position, destination} ;
-                        // variante.insert(variante.end(), tempVariante.begin(), tempVariante.end() ) ;
+                        variante = {position, destination} ;
+                        variante.insert(variante.end(), tempVariante.begin(), tempVariante.end() ) ;
 
                         bestInd = 2*semIdx ;
                         bestEval = thisEval ;
