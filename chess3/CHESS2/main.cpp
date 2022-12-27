@@ -22,23 +22,8 @@
 
 
 int main()
-{
+{  
 
-    // int square1, square2, exitnb ;
-    // exitnb = system("C:/Users/balth/anaconda3/python.exe ./findDiff.py");
-
-    // square1 = exitnb/64 ;
-    // square2 = exitnb%64 ; 
-
-    // for (int i = 0 ; i < 64 ; i++){
-    //     RightClicSquare(i) ;
-    //     sleep(0.5) ;
-    // }
-
-
-    // std::cout << "python exited " << square1 << " " << square2 << std::endl;
-    //std::cout << color << std::endl ;
-    //sleep(7) ;   
     char whiteHumanCHAR ;
     bool whiteHuman ;
     bool goodInput = false ; 
@@ -56,17 +41,7 @@ int main()
         }
     }
 
-    Game(3,10,4,10,whiteHuman) ;
-
-    
-    // unsigned long long int p27 = reverseULL(PawnSqTbW10) ; 
-    // std::cout << p27 << std::endl;
-    // coutBitSet(28710448241246208) ; 
-
-
-    // std::cout << "ended" << std::endl ; 
-    
-
+    Game(3,11,5,7,whiteHuman) ;
 
     return 0;
 }

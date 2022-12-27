@@ -6,6 +6,7 @@
 #include "coutBoard.h"
 #include "BitwiseFunction.h"
 
+
 #include <unistd.h>
 #include <limits>
 #include <iostream>
@@ -16,8 +17,8 @@
 int intINFINITY = std::numeric_limits<int>::max() ;
 
 
-//extern std::unordered_map<unsigned long long int, int> ump ;
-//extern std::unordered_map<unsigned long long int, int>::iterator it ;
+// extern std::unordered_map<unsigned long long int, int> ump ;
+// extern std::unordered_map<unsigned long long int, int>::iterator it ;
 
 
 int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long long int & b,
@@ -50,7 +51,7 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
         /*unsigned long long int zobKey ;
         zobKey = ZobristHash(r,n,b,q,k,p,R,N,B,Q,K,P,CstlS,CstlL,cstlS,cstlL, maximizingPlayer) ;
 
-        it = ump.find(zobKey); //Finding an element
+        it = ump.find(zobKey); //Findizng an element
 
         if(it != ump.end()){
             return it->second ;
@@ -88,20 +89,6 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
         // unsigned long long int tempForbCstlL;
         // unsigned long long int tempForbcstlS;
         // unsigned long long int tempForbcstlL;
-
-        if ( ( depth == 0 ) || ( veryMaxDepth == 0 )){
-            return EvalFunction(r,n,b,q,k,p,R,N,B,Q,K,P, moveNb) ;
-
-        }
-
-        if (k == 0){
-            rootVariant.clear() ;
-            return 10000 + veryMaxDepth ;
-        }
-        if (K == 0){
-            rootVariant.clear() ;
-            return -10000 - veryMaxDepth ;
-        }
 
         // std::string nothing ;
 
@@ -187,10 +174,10 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
             }
 
 
-            captInd = 0 ;
-            captInd2 = 0 ;
-            captInd3 = 0 ;
-            captInd4 = 0 ;
+            // captInd = 0 ;
+            // captInd2 = 0 ;
+            // captInd3 = 0 ;
+            // captInd4 = 0 ;
             // captInd5 = 0 ;
             for (int semInd = 0 ; semInd < moves.size()/2 ; semInd ++){
                 destInt = 1 ;
@@ -376,20 +363,10 @@ int minimax(unsigned long long int & r,unsigned long long int & n,unsigned long 
             }
 
 
-
-            /*______________________*/
-
-
-            /*for (int movInd = 0 ; movInd < moves.size() ; movInd++)
-            {
-                moves2.push_back(moves[movInd]) ;
-            }*/
-
-
-            captInd = 0 ;
-            captInd2 = 0 ;
-            captInd3 = 0 ;
-            captInd4 = 0 ;
+            // captInd = 0 ;
+            // captInd2 = 0 ;
+            // captInd3 = 0 ;
+            // captInd4 = 0 ;
             // captInd5 = 0 ;
             for (int semInd = 0 ; semInd < moves.size()/2 ; semInd ++){
                 destInt = 1 ;
@@ -624,20 +601,6 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
         // unsigned long long int tempForbcstlS;
         // unsigned long long int tempForbcstlL;
 
-        if ( ( depth == 0 ) || ( veryMaxDepth == 0 )){
-            return EvalFunction2(r,n,b,q,k,p,R,N,B,Q,K,P, moveNb) ;
-
-        }
-
-        if (k == 0){
-            rootVariant.clear() ;
-            return 10000 + veryMaxDepth ;
-        }
-        if (K == 0){
-            rootVariant.clear() ;
-            return -10000 - veryMaxDepth ;
-        }
-
         // std::string nothing ;
 
         // std::vector<int> moves ;
@@ -722,10 +685,10 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
             }
 
 
-            captInd = 0 ;
-            captInd2 = 0 ;
-            captInd3 = 0 ;
-            captInd4 = 0 ;
+            // captInd = 0 ;
+            // captInd2 = 0 ;
+            // captInd3 = 0 ;
+            // captInd4 = 0 ;
             // captInd5 = 0 ;
             for (int semInd = 0 ; semInd < moves.size()/2 ; semInd ++){
                 destInt = 1 ;
@@ -921,10 +884,10 @@ int minimax2(unsigned long long int & r,unsigned long long int & n,unsigned long
             }*/
 
 
-            captInd = 0 ;
-            captInd2 = 0 ;
-            captInd3 = 0 ;
-            captInd4 = 0 ;
+            // captInd = 0 ;
+            // captInd2 = 0 ;
+            // captInd3 = 0 ;
+            // captInd4 = 0 ;
             // captInd5 = 0 ;
             for (int semInd = 0 ; semInd < moves.size()/2 ; semInd ++){
                 destInt = 1 ;

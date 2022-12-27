@@ -59,11 +59,17 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
     posInt <<= pos ;
     destInt <<= dest ;
 
-    //enlever la pièce sur capture
+    //enlever la piï¿½ce sur capture
 
-    if (r>>dest&1){
-        r -= destInt ;
-        pieceCaptured = 1 ;
+    if (p>>dest&1){
+        p -= destInt ;
+        pieceCaptured = 6 ;
+
+    } else {
+
+    if (P>>dest&1){
+        P -= destInt ;
+        pieceCaptured = 12 ;
 
     } else {
 
@@ -85,24 +91,6 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
 
     } else {
 
-    if (k>>dest&1){
-        k -= destInt ;
-        pieceCaptured = 5 ;
-
-    } else {
-
-    if (p>>dest&1){
-        p -= destInt ;
-        pieceCaptured = 6 ;
-
-    } else {
-
-    if (R>>dest&1){
-        R -= destInt ;
-        pieceCaptured = 7 ;
-
-    } else {
-
     if (N>>dest&1){
         N -= destInt ;
         pieceCaptured = 8 ;
@@ -121,21 +109,34 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
 
     } else {
 
+    if (r>>dest&1){
+        r -= destInt ;
+        pieceCaptured = 1 ;
+
+    } else {
+
+    if (R>>dest&1){
+        R -= destInt ;
+        pieceCaptured = 7 ;
+
+    } else {
+
+    if (k>>dest&1){
+        k -= destInt ;
+        pieceCaptured = 5 ;
+
+    } else {
+
     if (K>>dest&1){
         K -= destInt ;
         pieceCaptured = 11 ;
 
-    } else {
-
-    if (P>>dest&1){
-        P -= destInt ;
-        pieceCaptured = 12 ;
     }
 
     else { //en passant
         if (( dest == pos + 7 ) && (P>>pos&1)){ //prise avant droit
             destInt = 1 ;
-            destInt <<= pos-1 ; //à droite de 1
+            destInt <<= pos-1 ; //ï¿½ droite de 1
             p -= destInt ;
             destInt = 1 ;
             destInt <<= dest ;
@@ -181,6 +182,90 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
         q += destInt ;
     } else {
 
+    if (p>>pos&1){
+        p -= posInt ;
+        p += destInt ;
+
+        if (dest == pos-16){
+            enPassant = 1 ;
+            enPassant <<=(pos-8) ;
+
+        }
+    } else {
+
+    if (P>>pos&1){
+        P -= posInt ;
+        P += destInt ;
+
+        if (dest == pos+16){
+            enPassant = 1 ;
+            enPassant <<=(pos+8) ;
+        }
+    } else {
+
+    if (n>>pos&1){
+        n -= posInt ;
+        n += destInt ;
+
+    } else {
+
+    if (b>>pos&1){
+        b -= posInt ;
+        b += destInt ;
+
+    } else {
+
+    if (q>>pos&1){
+        q -= posInt ;
+        q += destInt ;
+
+    } else {
+
+    if (N>>pos&1){
+        N -= posInt ;
+        N += destInt ;
+
+    } else {
+
+    if (B>>pos&1){
+        B -= posInt ;
+        B += destInt ;
+
+    } else {
+
+    if (Q>>pos&1){
+        Q -= posInt ;
+        Q += destInt ;
+
+    } else {
+
+    if (R>>pos&1){
+        R -= posInt ;
+        R += destInt ;
+
+        if(pos == 0){
+            brokeCastleS = CstlS ;
+            CstlS = false ;
+        }
+        if(pos == 7){
+            brokeCastleL = CstlL ;
+            CstlL = false ;
+        }
+    } else {
+
+    if (r>>pos&1){
+        if(pos == 56){
+            brokecastleS = cstlS ;
+            cstlS = false ;
+        }
+        if(pos == 63){
+            brokecastleL = cstlL ;
+            cstlL = false ;
+        }
+        r -= posInt ;
+        r += destInt ;
+
+    } else {
 
     //castle
     if ((pos==3)&&(dest==1)&&(K>>pos&1)&&(R&1)&&CstlS){ //white short
@@ -242,39 +327,6 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
 
     } else {
 
-
-    if (r>>pos&1){
-        if(pos == 56){
-            brokecastleS = cstlS ;
-            cstlS = false ;
-        }
-        if(pos == 63){
-            brokecastleL = cstlL ;
-            cstlL = false ;
-        }
-        r -= posInt ;
-        r += destInt ;
-
-    } else {
-
-    if (n>>pos&1){
-        n -= posInt ;
-        n += destInt ;
-
-    } else {
-
-    if (b>>pos&1){
-        b -= posInt ;
-        b += destInt ;
-
-    } else {
-
-    if (q>>pos&1){
-        q -= posInt ;
-        q += destInt ;
-
-    } else {
-
     if (k>>pos&1){
 
         k -= posInt ;
@@ -288,51 +340,6 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
 
     } else {
 
-    if (p>>pos&1){
-        p -= posInt ;
-        p += destInt ;
-
-        if (dest == pos-16){
-            enPassant = 1 ;
-            enPassant <<=(pos-8) ;
-
-        }
-
-    } else {
-
-    if (R>>pos&1){
-        R -= posInt ;
-        R += destInt ;
-
-        if(pos == 0){
-            brokeCastleS = CstlS ;
-            CstlS = false ;
-        }
-        if(pos == 7){
-            brokeCastleL = CstlL ;
-            CstlL = false ;
-        }
-
-    } else {
-
-    if (N>>pos&1){
-        N -= posInt ;
-        N += destInt ;
-
-    } else {
-
-    if (B>>pos&1){
-        B -= posInt ;
-        B += destInt ;
-
-    } else {
-
-    if (Q>>pos&1){
-        Q -= posInt ;
-        Q += destInt ;
-
-    } else {
-
     if (K>>pos&1){
         K -= posInt ;
         K += destInt ;
@@ -343,19 +350,7 @@ void Do_move(int pos, int dest, bool & CstlL, bool & CstlS, bool & cstlL, bool &
         CstlL = false ;
         CstlS = false ;
 
-    } else {
-
-    if (P>>pos&1){
-        P -= posInt ;
-        P += destInt ;
-
-        if (dest == pos+16){
-            enPassant = 1 ;
-            enPassant <<=(pos+8) ;
-        }
-    }
-
-    }}}}}}}}}}}}}}}}}
+    }}}}}}}}}}}}}}}}}}
 }
 
 void Undo_move(int wasPos, int wasDest, bool brokeCastleS, bool brokeCastleL, bool brokecastleS, bool brokecastleL,
@@ -368,35 +363,27 @@ void Undo_move(int wasPos, int wasDest, bool brokeCastleS, bool brokeCastleL, bo
 
     std::string nothing ;
 
-
-
     //piece captured : aucune - rnbqkpRNBQKP
     //int : 0 - 1-2-3-4-5-6-7-8-9-10-11-12
 
     if (brokeCastleL){
         CstlL = true ;
         //std::cout << "CL" << std::endl ;
-
     }
 
     if (brokecastleL){
         cstlL = true ;
-
         //std::cout << "cL" << std::endl ;
-
-
     }
 
     if (brokeCastleS){
         CstlS = true ;
         //std::cout << "CS" << std::endl ;
-
     }
 
     if (brokecastleS){
         cstlS = true ;
         //std::cout << "cS" << std::endl ;
-
     }
 
     unsigned long long int wasDestInt (1) ;
@@ -516,6 +503,37 @@ void Undo_move(int wasPos, int wasDest, bool brokeCastleS, bool brokeCastleL, bo
     std::cout << "wasPosInt = " << std::endl;
     coutBitSet(wasPosInt) ;*/
 
+    if (p>>wasDest&1){
+
+        if ((wasDest == wasPos-7) && (pieceCaptured == 0)){ // enPassant
+            temPassant <<= (wasPos+1) ;
+            P+=temPassant ;
+
+
+        }
+        if ((wasDest == wasPos-9) && (pieceCaptured == 0)){ // enPassant
+            temPassant <<= (wasPos-1) ;
+            P+=temPassant ;
+
+        }
+        p = p - wasDestInt + wasPosInt ;
+        
+    } else {
+
+        if (P>>wasDest&1){
+        P = P - wasDestInt + wasPosInt ;
+        if ((wasDest == wasPos+7) && (pieceCaptured == 0)){ // enPassant
+            temPassant <<= (wasPos-1) ;
+            p+=temPassant ;
+
+        }
+        if ((wasDest == wasPos+9) && (pieceCaptured == 0)){ // enPassant
+            temPassant <<= (wasPos+1) ;
+            p+=temPassant ;
+
+        }
+    }
+
     if (r>>wasDest&1){
         r = r - wasDestInt + wasPosInt ;
     } else {
@@ -536,21 +554,7 @@ void Undo_move(int wasPos, int wasDest, bool brokeCastleS, bool brokeCastleL, bo
         k = k - wasDestInt + wasPosInt ;
     } else {
 
-    if (p>>wasDest&1){
 
-        if ((wasDest == wasPos-7) && (pieceCaptured == 0)){ // enPassant
-            temPassant <<= (wasPos+1) ;
-            P+=temPassant ;
-
-
-        }
-        if ((wasDest == wasPos-9) && (pieceCaptured == 0)){ // enPassant
-            temPassant <<= (wasPos-1) ;
-            P+=temPassant ;
-
-        }
-        p = p - wasDestInt + wasPosInt ;
-    } else {
 
     if (R>>wasDest&1){
         R = R - wasDestInt + wasPosInt ;
@@ -574,61 +578,46 @@ void Undo_move(int wasPos, int wasDest, bool brokeCastleS, bool brokeCastleL, bo
         K = K - wasDestInt + wasPosInt ;
     } else {
 
-    if (P>>wasDest&1){
-        P = P - wasDestInt + wasPosInt ;
-        if ((wasDest == wasPos+7) && (pieceCaptured == 0)){ // enPassant
-            temPassant <<= (wasPos-1) ;
-            p+=temPassant ;
-
-        }
-        if ((wasDest == wasPos+9) && (pieceCaptured == 0)){ // enPassant
-            temPassant <<= (wasPos+1) ;
-            p+=temPassant ;
-
-        }
-    }
-
-
     }}}}}}}}}}}}}
 
     if (pieceCaptured != 0){
         //std::cout << "In Undo_move, pieceCaptured = " << pieceCaptured << std::endl ;
         switch(pieceCaptured){
-            case 1 :
-                r += wasDestInt ;
+            case 6 :
+                p += wasDestInt ;
                 break ;
-            case 2 :
-                n += wasDestInt ;
-                break ;
-            case 3 :
-                b += wasDestInt ;
+            case 12 :
+                P += wasDestInt ;
                 break ;
             case 4 :
                 q += wasDestInt ;
                 break ;
-            case 5 :
-                k += wasDestInt ;
+            case 10 :
+                Q += wasDestInt ;
                 break ;
-            case 6 :
-                p += wasDestInt ;
-                break ;
-            case 7 :
-                R += wasDestInt ;
+            case 2 :
+                n += wasDestInt ;
                 break ;
             case 8 :
                 N += wasDestInt ;
                 break ;
+            case 3 :
+                b += wasDestInt ;
+                break ;
             case 9 :
                 B += wasDestInt ;
                 break ;
-            case 10 :
-                Q += wasDestInt ;
+            case 1 :
+                r += wasDestInt ;
+                break ;
+            case 7 :
+                R += wasDestInt ;
+                break ; 
+            case 5 :
+                k += wasDestInt ;
                 break ;
             case 11 :
                 K += wasDestInt ;
-                break ;
-            case 12 :
-                P += wasDestInt ;
                 break ;
         }
     }

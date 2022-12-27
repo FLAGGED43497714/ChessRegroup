@@ -37,6 +37,7 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
     unsigned long long int r,n,b,q,k,p,R,N,B,Q,K,P;
 
     std::string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR" ;
+    // std::string fen = "3r3k/ppp3p1/2n3Qp/3B4/3P4/q1P5/P5PP/4R1K1" ;
 
     //std::string fen = "r3kb1r/3n1ppp/3p4/qBpQ4/4P3/5P2/PPP2P1P/R3K2R" ;
     //std::string fen = "rn1qk2r/ppp2p2/5p1p/3b2p1/1b1P4/2N2Q1N/PPP2PPP/R3KB1R" ;
@@ -55,9 +56,9 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
 
     unsigned long long int enPassant (0);
 
-    std::string strPosition ;
+    //std::string strPosition ; //pour la version clavier
     int position ;
-    std::string strDestination ;
+    //std::string strDestination ; //pour la version clavier
     int destination ;
 
 
@@ -158,7 +159,8 @@ void Game(int depth1EARLY, int depth2EARLY, int depth1LATE, int depth2LATE, bool
         coutBoard(r,n,b,q,k,p,R,N,B,Q,K,P) ;
 
         if (!(moveNb%2)){std::cout << "white " ;} else {std::cout << "black " ;}std::cout << "to play" << std::endl;
-
+        // hotfix
+        // sleep(10);
         moves.clear();
         occupied = r | n | b | q | k | p | R | N | B | Q | K | P ;
         blackPieces = r | n | b | q | k | p ;

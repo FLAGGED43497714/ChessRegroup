@@ -565,16 +565,16 @@ void KnightMoves(std::vector<int>& moves, unsigned long long int piece,
 }
 
 
-void KingMoves(std::vector<int>& moves, unsigned long long int piece,unsigned long long int rook,
+void KingMoves(std::vector<int>& moves, unsigned long long int king,unsigned long long int rook,
          unsigned long long int allyPieces, unsigned long long int occupied,
          bool CstlL, bool CstlS, bool cstlL, bool cstlS){
 
-    unsigned long long int king ;
+    // unsigned long long int king ; //piece va être changé dans la loop
     unsigned long long int Nmove ;
     unsigned long long int Nmoves (0);
 
     for (int k = 0 ; k < 64 ; k++ ){ // optimisable
-        if ((piece>>k)&1){
+        if ((king>>k)&1){
 
             if (k==3){
 
@@ -598,10 +598,6 @@ void KingMoves(std::vector<int>& moves, unsigned long long int piece,unsigned lo
                     moves.push_back(61) ;
                 }
             }
-
-
-            king = 1 ;
-            king <<= k ;
 
             Nmove = king ; // />
             Nmove <<= 7  ;

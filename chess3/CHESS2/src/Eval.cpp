@@ -321,34 +321,34 @@ int EvalPieces(unsigned long long int r,unsigned long long int n,unsigned long l
     return sum ;
 }
 
-int RelativeEvalPieces(unsigned long long int r,unsigned long long int n,unsigned long long int b,
-        unsigned long long int q,unsigned long long int k,unsigned long long int p,
-        unsigned long long int R,unsigned long long int N,unsigned long long int B,
-        unsigned long long int Q,unsigned long long int K,unsigned long long int P)
-{
-    int sum1 (0) ;
-    int sum2 (0) ;
+// int RelativeEvalPieces(unsigned long long int r,unsigned long long int n,unsigned long long int b,
+//         unsigned long long int q,unsigned long long int k,unsigned long long int p,
+//         unsigned long long int R,unsigned long long int N,unsigned long long int B,
+//         unsigned long long int Q,unsigned long long int K,unsigned long long int P)
+// {
+//     int sum1 (0) ;
+//     int sum2 (0) ;
 
-    sum1 += countSetBits2(R) * 510 ;  
-    sum2 += countSetBits2(r) * 510 ;
+//     sum1 += countSetBits2(R) * 510 ;  
+//     sum2 += countSetBits2(r) * 510 ;
     
-    sum1 += countSetBits2(N) * 320 ; 
-    sum2 += countSetBits2(n) * 320 ;
+//     sum1 += countSetBits2(N) * 320 ; 
+//     sum2 += countSetBits2(n) * 320 ;
     
-    sum1 += countSetBits2(B)* 333 ; 
-    sum2 += countSetBits2(b) * 333 ;
+//     sum1 += countSetBits2(B)* 333 ; 
+//     sum2 += countSetBits2(b) * 333 ;
     
-    sum1 += countSetBits2(Q) * 880 ; 
-    sum2 += countSetBits2(q) * 880 ;
+//     sum1 += countSetBits2(Q) * 880 ; 
+//     sum2 += countSetBits2(q) * 880 ;
     
-    sum1 += countSetBits2(K) * 10000 ; 
-    sum2 += countSetBits2(k) * 10000 ;
+//     sum1 += countSetBits2(K) * 10000 ; 
+//     sum2 += countSetBits2(k) * 10000 ;
     
-    sum1 += countSetBits2(P) * 100 ;
-    sum2 += countSetBits2(p) * 100 ;
+//     sum1 += countSetBits2(P) * 100 ;
+//     sum2 += countSetBits2(p) * 100 ;
 
-    return (sum1 - sum2) * (100000 - (sum1+sum2)) ;
-}
+//     return (sum1 - sum2) * (100000 - (sum1+sum2)) ;
+// }
 
 
 int EvalMajorPieces(unsigned long long int r,unsigned long long int n,unsigned long long int b,
